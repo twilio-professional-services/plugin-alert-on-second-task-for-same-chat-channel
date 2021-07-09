@@ -1,12 +1,17 @@
 # Alert Agent on Accepting a Second Task for a Chat Channel that they are Already a Member Of
 
-Agents shouldn’t try to handle multiple tasks for the same channel at once. If they do, then when they hit "Complete" on one of those tasks - they will be removed from the channel, thus impacting the other task(s) that share that same chat channel.
-
+## The Potential Problem With Long-Lived Channels in Flex...
 If you use long-lived channels, there's the potential for a new task to arrive for a chat channel that's still being wrapped up by your agent. Clicking "End Chat" on a long-lived chat task will only clear the proxy session between Twilio and the customer (but will keep the channel active). Therefore a further message from the customer would lead to a new proxy session and a new task - using the same long-lived chat channel.
+
+Agents shouldn’t try to handle multiple tasks for the same channel at once. If they do, then when they hit "Complete" on one of those tasks - they will be removed from the channel, thus impacting the other task(s) that share that same chat channel. Example of this below.
+
+<img width="1280px" src="screenshots/two-tasks-same-channel-wrapup-problem.gif"/>
+
+## OK So What Does This Plugin Do to Help?
 
 This plugin helps to mitigate against the above scenario by showing a notification if trying to accept a task that’s for a chat channel that’s already in use in another task. The "Accept Task" action will be blocked until the agent wraps up other tasks associated with that channel. The notification provides a convenient "Go to Task" link - to quickly jump to the existing task that needs to be wrapped up.
 
-<img width="700px" src="screenshots/long-lived-channel-precautions.png"/>
+<img width="1280px" src="screenshots/two-tasks-same-channel-with-alert-plugin.gif"/>
 
 ## About Twilio Flex Plugins
 
